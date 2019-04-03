@@ -11,6 +11,7 @@ module.exports = function(context, req) {
     (err, db) => {
       if (err) throw err
 
+      //get all clients
       Client.find().exec(function(err, clients) {
         console.log(clients)
         context.res = {
