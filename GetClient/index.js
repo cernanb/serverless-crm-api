@@ -10,14 +10,16 @@ module.exports = function(context, req) {
     { auth: cosmosDBAuth },
     (err, db) => {
       if (err) throw err
-      Client.findById(context.req.params.id).exec(function(err, client) {
-        context.res = {
-          body: client
-        }
+      Client.findById(context.req.params.id)
+        .populate("notes")
+        .exec(function(err, client) {
+          context.res = {
+            body: client
+          }
 
-        db.close()
-        context.done()
-      })
+          db.close()
+          context.done()
+        })
     }
   )
 }

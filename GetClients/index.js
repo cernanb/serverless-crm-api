@@ -12,15 +12,17 @@ module.exports = function(context, req) {
       if (err) throw err
 
       //get all clients
-      Client.find().exec(function(err, clients) {
-        console.log(clients)
-        context.res = {
-          body: clients
-        }
+      Client.find()
+        .populate("notes")
+        .exec(function(err, clients) {
+          console.log(clients)
+          context.res = {
+            body: clients
+          }
 
-        db.close()
-        context.done()
-      })
+          db.close()
+          context.done()
+        })
     }
   )
 }
